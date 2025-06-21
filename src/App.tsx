@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import ChatPage from "./components/ChatPage";
 import LoginPage from "./components/LoginPage";
+import Navbar from "./components/Navbar";
 import { onAuthStateChanged, User } from "firebase/auth";
 
 function App() {
@@ -11,7 +12,12 @@ function App() {
     return onAuthStateChanged(auth, setUser);
   }, []);
 
-  return user ? <ChatPage user={user} /> : <LoginPage />;
+  return (
+      <>
+        <Navbar user={user} />
+        {user ? <ChatPage user={user} /> : <LoginPage />}
+      </>
+  );
 }
 
 export default App;
