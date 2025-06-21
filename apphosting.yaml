@@ -1,0 +1,15 @@
+# apphosting.yaml
+
+# 이 파일은 Firebase App Hosting 백엔드의 실행 환경을 정의합니다.
+
+apphosting:
+  backend:
+    # 이 섹션에 백엔드의 런타임 구성을 정의합니다.
+    # 여기서 CPU와 메모리 설정을 지정할 수 있습니다.
+    runConfig:
+      memory: 1Gi   # 백엔드에 할당할 메모리 크기를 1기가바이트(Gi)로 설정합니다.
+      cpu: 1        # 백엔드에 할당할 CPU 코어 수를 1개로 설정합니다.
+
+    # 기타 필요한 백엔드 설정이 있다면 여기에 추가할 수 있습니다.
+    # 예를 들어, 환경 변수 등은 apphosting.yaml에 직접 작성되지 않고,
+    # Firebase Console이나 CLI를 통해 설정합니다.
