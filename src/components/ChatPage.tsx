@@ -1,44 +1,53 @@
-import { useEffect, useRef, useState } from "react";
-import { db } from "../firebase";
-import {
-    collection,
-    addDoc,
-    onSnapshot,
-    query,
-    orderBy,
-    Timestamp,
-} from "firebase/firestore";
-import {
-    Box,
-    TextField,
-    Button,
-    Typography,
-    Paper,
-} from "@mui/material";
+import {useEffect, useRef, useState} from "react";
+import {db} from "../firebase";
+import {addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, setDoc, Timestamp} from "firebase/firestore";
+import {Box, Button, Paper, TextField, Typography,} from "@mui/material";
 
-const ChatPage = ({ user }: { user: any }) => {
+const ChatPage = ({user}: { user: any }) => {
     const [messages, setMessages] = useState<any[]>([]);
     const [input, setInput] = useState("");
+    const [userInfo, setUserInfo] = useState<any>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // ✅ 추가: 사용자 정보 doc 존재하지 않으면 생성
+    const ensureUserDoc = async () => {
+        const userRef = doc(db, "messages", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (!docSnap.exists()) {
+            await setDoc(userRef, {
+                displayName: user.displayName,
+                email: user.email,
+                createdAt: Timestamp.now(),
+            });
+        }
+
+        setUserInfo(docSnap.exists() ? docSnap.data() : {
+            displayName: user.displayName,
+        });
+    };
+
     useEffect(() => {
-        const q = query(collection(db, "messages"), orderBy("createdAt"));
+        if (!user?.uid) return;
+
+        ensureUserDoc();
+
+        const q = query(collection(db, "messages", user.uid, "chats"), orderBy("createdAt"));
         const unsubscribe = onSnapshot(q, (snapshot) => {
-            setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setMessages(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
         });
 
         return unsubscribe;
-    }, []);
+    }, [user?.uid]);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
 
     const sendMessage = async () => {
         if (!input.trim()) return;
 
-        await addDoc(collection(db, "messages"), {
-            user: user.displayName,
+        await addDoc(collection(db, "messages", user.uid, "chats"), {
             text: input,
             createdAt: Timestamp.now(),
         });
@@ -76,18 +85,22 @@ const ChatPage = ({ user }: { user: any }) => {
                         }}
                     >
                         <Typography variant="body2">
-                            <strong>{msg.user}</strong>: {msg.text}
+                            <strong>{userInfo?.displayName || user.displayName}</strong>: {msg.text}
                         </Typography>
                     </Paper>
                 ))}
-                <div ref={messagesEndRef} />
+                <div ref={messagesEndRef}/>
             </Box>
 
             {/* Input */}
-            <Box
-                sx={{
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault(); // ✅ 중복 방지
+                    sendMessage();
+                }}
+                style={{
                     display: "flex",
-                    p: 2,
+                    padding: "16px",
                     borderTop: "1px solid #ccc",
                     backgroundColor: "#F0F4F5",
                 }}
@@ -97,15 +110,14 @@ const ChatPage = ({ user }: { user: any }) => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask your question about life..."
-                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                 />
                 <Button
-                    onClick={sendMessage}
-                    sx={{ ml: 1, backgroundColor: "#958DAD", color: "white" }}
+                    type="submit" // ✅ 변경: 버튼을 submit으로
+                    sx={{ml: 1, backgroundColor: "#958DAD", color: "white"}}
                 >
                     Send
                 </Button>
-            </Box>
+            </form>
         </Box>
     );
 };
