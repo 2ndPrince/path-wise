@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
 import {
     collection,
@@ -8,7 +8,13 @@ import {
     orderBy,
     Timestamp,
 } from "firebase/firestore";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+    Box,
+    TextField,
+    Button,
+    Typography,
+    Paper,
+} from "@mui/material";
 
 const ChatPage = ({ user }: { user: any }) => {
     const [messages, setMessages] = useState<any[]>([]);
@@ -37,42 +43,66 @@ const ChatPage = ({ user }: { user: any }) => {
             createdAt: Timestamp.now(),
         });
 
-        // TODO: Vertex AI 호출 후 답변 저장
         setInput("");
     };
 
     return (
         <Box
             sx={{
-                backgroundColor: "#F0F4F5",
-                height: "100vh",
+                height: "calc(100vh - 64px)", // subtract Navbar height (default AppBar height is 64px)
                 display: "flex",
                 flexDirection: "column",
-                padding: 2,
+                backgroundColor: "#F0F4F5",
                 fontFamily: "Inter, sans-serif",
             }}
         >
-            <Typography variant="h5" mb={2} color="#89B3C7">
-                Path Wise
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+            {/* Chat Messages */}
+            <Box
+                sx={{
+                    flexGrow: 1,
+                    overflowY: "auto",
+                    p: 2,
+                }}
+            >
                 {messages.map((msg) => (
-                    <Box key={msg.id} sx={{ mb: 1 }}>
-                        <strong>{msg.user}</strong>: {msg.text}
-                    </Box>
+                    <Paper
+                        key={msg.id}
+                        sx={{
+                            p: 1,
+                            mb: 1,
+                            maxWidth: "80%",
+                            backgroundColor: msg.user === user.displayName ? "#e0f7fa" : "#fff",
+                            alignSelf: msg.user === user.displayName ? "flex-end" : "flex-start",
+                        }}
+                    >
+                        <Typography variant="body2">
+                            <strong>{msg.user}</strong>: {msg.text}
+                        </Typography>
+                    </Paper>
                 ))}
                 <div ref={messagesEndRef} />
             </Box>
 
-            <Box sx={{ display: "flex", mt: 2 }}>
+            {/* Input */}
+            <Box
+                sx={{
+                    display: "flex",
+                    p: 2,
+                    borderTop: "1px solid #ccc",
+                    backgroundColor: "#F0F4F5",
+                }}
+            >
                 <TextField
                     fullWidth
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask your question about life..."
+                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                 />
-                <Button onClick={sendMessage} sx={{ ml: 1, backgroundColor: "#958DAD", color: "white" }}>
+                <Button
+                    onClick={sendMessage}
+                    sx={{ ml: 1, backgroundColor: "#958DAD", color: "white" }}
+                >
                     Send
                 </Button>
             </Box>
