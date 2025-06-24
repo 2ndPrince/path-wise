@@ -47,12 +47,37 @@ const ChatPage = ({user}: { user: any }) => {
     const sendMessage = async () => {
         if (!input.trim()) return;
 
+        const userMessage = input.trim();
+
         await addDoc(collection(db, "messages", user.uid, "chats"), {
-            text: input,
+            text: userMessage,
+            user: user.displayName,
             createdAt: Timestamp.now(),
         });
 
         setInput("");
+
+        try {
+            const encodedMessage = encodeURIComponent(userMessage); // 한글 등 인코딩 처리
+            const response = await fetch(`https://helloworld-xijzpv4ydq-uc.a.run.app?message=${encodedMessage}`);
+            const data = await response.json();
+
+            const answer = data.message || "응답이 없습니다.";
+
+            // 3️⃣ 응답 메시지를 Firestore에 저장
+            await addDoc(collection(db, "messages", user.uid, "chats"), {
+                text: answer,
+                user: "agent", // 시스템/AI 응답자
+                createdAt: Timestamp.now(),
+            });
+        } catch (error) {
+            console.error("에이전트 호출 실패:", error);
+            await addDoc(collection(db, "messages", user.uid, "chats"), {
+                text: "⚠️ 응답을 불러오는 데 실패했어요.",
+                user: "agent",
+                createdAt: Timestamp.now(),
+            });
+        }
     };
 
     return (
@@ -85,7 +110,7 @@ const ChatPage = ({user}: { user: any }) => {
                         }}
                     >
                         <Typography variant="body2">
-                            <strong>{userInfo?.displayName || user.displayName}</strong>: {msg.text}
+                            <strong>{msg.user === user.displayName ? userInfo?.displayName : "Agent"}</strong>: {msg.text}
                         </Typography>
                     </Paper>
                 ))}
