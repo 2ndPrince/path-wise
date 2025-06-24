@@ -25,3 +25,5 @@ yarn-error.log*
 # Firebase local state
 .firebase/
 firebase-debug.log
+
+.idea/
