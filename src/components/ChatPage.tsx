@@ -70,7 +70,7 @@ const ChatPage = ({user}: { user: any }) => {
 
             const data = await response.json();
 
-            const answer = data.message || "응답이 없습니다.";
+            const answer = data.response || data.message || "응답이 없습니다.";
 
             // 3️⃣ 응답 메시지를 Firestore에 저장
             await addDoc(collection(db, "messages", user.uid, "chats"), {
