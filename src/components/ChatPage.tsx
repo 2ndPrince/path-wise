@@ -59,7 +59,15 @@ const ChatPage = ({user}: { user: any }) => {
 
         try {
             const encodedMessage = encodeURIComponent(userMessage); // 한글 등 인코딩 처리
-            const response = await fetch(`https://helloworld-xijzpv4ydq-uc.a.run.app?message=${encodedMessage}`);
+            // const response = await fetch(`https://helloworld-xijzpv4ydq-uc.a.run.app?message=${encodedMessage}`);
+            const response = await fetch("https://askvertexai-xijzpv4ydq-uc.a.run.app", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: encodedMessage }),
+            });
+
             const data = await response.json();
 
             const answer = data.message || "응답이 없습니다.";
