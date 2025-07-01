@@ -26,7 +26,7 @@ This repository contains the frontend code built with **React + TypeScript**, de
 | Connect to backend function via fetch POST       | 2025-06-21 | 2025-06-22     | ✅ Done     |
 | Scroll to bottom on new message                  | 2025-06-21 | 2025-06-21     | ✅ Done     |
 | Message formatting for structured agent replies  | 2025-06-28 | 2025-06-28     | ✅ Done     |
-| Display loading spinner while waiting for response| 2025-06-25 | –             | 🔄 In Progress |
+| Display loading spinner while waiting for response| 2025-07-01 | –             | 🔄 In Progress |
 
 ---
 
