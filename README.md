@@ -22,10 +22,10 @@ This repository contains the frontend code built with **React + TypeScript**, de
 
 | Feature Description                              | Date Added | Date Finished | Status     | Commit |
 |--------------------------------------------------|------------|----------------|------------|--------|
-| User input form with message send button         | 2025-06-21 | 2025-06-21     | ✅ Done     | [`09a6b8c`](https://github.com/2ndPrince/path-wise/commit/09a6b8cb0a62cd9df19b38bb1f5a5ea04b2e4919) |
-| Connect to backend function via fetch POST       | 2025-06-21 | 2025-06-22     | ✅ Done     | [`f48b2d1`](https://github.com/2ndPrince/path-wise/commit/f48b2d1c5d291c4ad89912dfbd2dc9e0f4e004ad) |
-| Scroll to bottom on new message                  | 2025-06-21 | 2025-06-21     | ✅ Done     | [`7ce9a7a`](https://github.com/2ndPrince/path-wise/commit/7ce9a7ab2ae68db9999470b3e70a754a5c8700bc) |
-| Message formatting for structured agent replies  | 2025-06-28 | 2025-06-28     | ✅ Done     | [`83a2bd7`](https://github.com/2ndPrince/path-wise/commit/83a2bd70ec25adcc1aa92e476503f4fdc60d69b3) |
+| User input form with message send button         | 2025-06-21 | 2025-06-21     | ✅ Done     | |
+| Connect to backend function via fetch POST       | 2025-06-21 | 2025-06-22     | ✅ Done     | |
+| Scroll to bottom on new message                  | 2025-06-21 | 2025-06-21     | ✅ Done     | |
+| Message formatting for structured agent replies  | 2025-06-28 | 2025-06-28     | ✅ Done     | |
 | Display loading spinner while waiting for response| 2025-07-01 | 2025-07-01     | ✅ Done     | [`15bf26c`](https://github.com/2ndPrince/path-wise/commit/15bf26cf581b07801b95d135de971722341193f0) |
 
 ---
