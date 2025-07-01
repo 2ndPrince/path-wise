@@ -27,6 +27,9 @@ This repository contains the frontend code built with **React + TypeScript**, de
 | Scroll to bottom on new message                  | 2025-06-21 | 2025-06-21     | ✅ Done     | |
 | Message formatting for structured agent replies  | 2025-06-28 | 2025-06-28     | ✅ Done     | |
 | Display loading spinner while waiting for response| 2025-07-01 | 2025-07-01     | ✅ Done     | [`15bf26c`](https://github.com/2ndPrince/path-wise/commit/15bf26cf581b07801b95d135de971722341193f0) |
+| Structured Output with Reference | 2025-07-01 | | | | |
+| Clear previous chat history | 2025-07-01 | | | | |
+| Multiple Chat Sessions per User | 2025-07-01 | | | | |
 
 ---
 
