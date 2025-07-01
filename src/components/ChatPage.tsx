@@ -1,13 +1,14 @@
 import {useEffect, useRef, useState} from "react";
 import {db} from "../firebase";
 import {addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, setDoc, Timestamp} from "firebase/firestore";
-import {Box, Button, Paper, TextField, Typography,} from "@mui/material";
+import {Box, Button, Paper, TextField, Typography, CircularProgress} from "@mui/material";
 
 const ChatPage = ({user}: { user: any }) => {
     const [messages, setMessages] = useState<any[]>([]);
     const [input, setInput] = useState("");
     const [userInfo, setUserInfo] = useState<any>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     // ✅ 추가: 사용자 정보 doc 존재하지 않으면 생성
     const ensureUserDoc = async () => {
@@ -42,7 +43,7 @@ const ChatPage = ({user}: { user: any }) => {
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
-    }, [messages]);
+    }, [messages, isLoading]);
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -56,6 +57,7 @@ const ChatPage = ({user}: { user: any }) => {
         });
 
         setInput("");
+        setIsLoading(true);
 
         try {
             const response = await fetch("https://askvertexai-xijzpv4ydq-uc.a.run.app", {
@@ -83,6 +85,8 @@ const ChatPage = ({user}: { user: any }) => {
                 user: "agent",
                 createdAt: Timestamp.now(),
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -120,6 +124,24 @@ const ChatPage = ({user}: { user: any }) => {
                         </Typography>
                     </Paper>
                 ))}
+
+                {/* ✅ 로딩 스피너 표시 */}
+                {isLoading && (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            py: 2,
+                        }}
+                    >
+                        <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                            Agent is typing...
+                        </Typography>
+                        <CircularProgress size={20} thickness={4} />
+                    </Box>
+                )}
+
                 <div ref={messagesEndRef}/>
             </Box>
 
