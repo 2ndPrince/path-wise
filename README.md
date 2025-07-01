@@ -1,7 +1,8 @@
 # 🧭 Path Wise – Frontend App
 
-**Path Wise** is a life-advice and spiritual guidance chatbot powered by Google Vertex AI with RAG (Retrieval-Augmented Generation).  
-This repository contains the frontend code built with **React + TypeScript**, designed to interface with a cloud function backend.
+**Path Wise** is a life-advice and spiritual guidance chatbot powered by Google Vertex AI with Retrieval-Augmented Generation (RAG).  
+The AI engine is trained on carefully curated sermon content that explains how to live wisely and practically based on biblical principles.  
+This repository contains the frontend application built with **React + TypeScript**, designed to interact with a serverless backend via cloud functions.
 
 ### https://path-wise-792e5.web.app/
 
