@@ -32,9 +32,9 @@ This repository contains the frontend code built with **React + TypeScript**, de
 
 ## 🐛 Known Defects / Issues
 
-| Description                                       | Reported On | Status        | Notes                          |
-|--------------------------------------------------|-------------|----------------|--------------------------------|
-| Double response occasionally appears             | 2025-06-22  | ✅ Done        | Possibly due to re-rendering  |
+| Description                                       | Reported On | Status        | Notes                          | Commit |
+|--------------------------------------------------|-------------|----------------|--------------------------------|--------|
+| Double response occasionally appears             | 2025-06-22  | ✅ Done        | Possibly due to re-rendering  | [`'8d42106`](https://github.com/2ndPrince/path-wise/commit/8d42106af6a16215090a860f6551236554edf3e4)
 
 ---
 
