@@ -23,9 +23,9 @@ This repository contains the frontend application built with **React + TypeScrip
 
 | Step | Description                                                                                     | Status        | Date Completed | Notes                              |
 |------|-------------------------------------------------------------------------------------------------|---------------|----------------|------------------------------------|
-| 1️⃣   | **Build Transcript Pool**: Collect and curate sermon transcripts via Google Drive               | ✅ Done        | 2025-06-15     | Google Drive + Python Script       |
+| 1️⃣   | **Build Transcript Pool**: Collect and curate sermon transcripts via Google Drive               | ✅ Done        | 2025-06-15     | Google Drive + Youtube Data API       |
 | 2️⃣   | **Train Vertex AI RAG Engine**: Use transcript pool to fine-tune or configure RAG model         | ✅ Done        | 2025-06-20     | Vertex AI + Custom Retriever Setup |
-| 3️⃣   | **Shadow Launch Testing**: Validate RAG engine performance via internal testing                 | ✅ Done        | 2025-06-24     | CLI & isolated prompt testing      |
+| 3️⃣   | **Shadow Launch Testing**: Validate RAG engine performance via internal testing                 | ✅ Done        | 2025-06-24     | Cloud Run Testing     |
 | 4️⃣   | **Frontend Integration**: Connect trained engine to React frontend and enable conversation flow | ✅ Done        | 2025-07-01     | Firebase Hosting + Cloud Function  |
 | 5️⃣   | **Performance Tuning**: Define benchmark dataset, compare models/parameters, optimize response | ⏳ In Progress | –              | Latency, relevance, cost analysis  |
 | 6️⃣   | **Production Launch & Feature Expansion**: Add clickable references and production stability    | 🔜 Planned     | –              | Reference UX, analytics, logging   |
